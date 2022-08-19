@@ -14,14 +14,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 async function formPath(module) { //ostorozhno govnokod - finding the router file
     const files = await readdir(path.join(__dirname, `/modules/${module}`));
     let index
-    if ( files.includes('index.mjs') ) {
-        index = 'index.mjs'
-    } else if( files.includes('index.cjs') ) {
-        index = 'index.cjs'
-    } else if ( files.includes('index.js') ) {
-        index = 'index.js'
+    if ( files.includes('router.mjs') ) {
+        index = 'router.mjs'
+    } else if( files.includes('router.cjs') ) {
+        index = 'router.cjs'
+    } else if ( files.includes('router.js') ) {
+        index = 'router.js'
     } else {
-        throw new Error('No index js file: ' + module)
+        throw new Error('No router js file: ' + module)
     }
     let prefix = 'file://' //windows file url
     return prefix + path.join(__dirname, `/modules/${module}/${index}`)
