@@ -37,7 +37,13 @@ async function loadModule(app, module) { //add a module subdomain //the main req
 
 async function loadModules(app) { //load folder modules
     try {
-        let homeModule = await import(await formPath(routerConfig.homepageFolder)) //можно добавлять хомпеж как субдомен и не парсить его отдельно
+        let homeModule
+        if (routerConfig.homepageFolder){
+            homeModule = await import(await formPath(routerConfig.homepageFolder))     
+        } else {
+            throw new Error('No home folder')
+        }
+        
 
         app.use('/', function (req, res, next) { //main req handler
             if (req.subdomains.length > 0) {
@@ -50,6 +56,7 @@ async function loadModules(app) { //load folder modules
         const files = await readdir(path.join(__dirname, '/modules'));
         for (let filename of files){ 
             if(!(routerConfig.homepageFolder == filename)){
+                
                 await loadModule(app, filename)
             }
         }
