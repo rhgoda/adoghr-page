@@ -1,3 +1,6 @@
 [submodule "modules/10100F"]
 	path = modules/10100F
 	url = https://github.com/rhgoda/10100F
+[submodule "modules/adoghr-home"]
+	path = modules/adoghr-home
+	url = https://github.com/rhgoda/adoghr-home
