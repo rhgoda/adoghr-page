@@ -31,6 +31,7 @@ async function loadModule(app, module) { //add a module subdomain //the main req
     if (!routerConfig.exceptions.includes(module)) {
         let module_path = await formPath(module)
         let routerModule = await import(module_path)
+        console.log(routerModule)
         app.use(expressSubdomain(module, routerModule.default));//use imported router
     }
 }
@@ -49,7 +50,7 @@ async function loadModules(app) { //load folder modules
 
         const files = await readdir(path.join(__dirname, '/modules'));
         for (let filename of files){ 
-            if(!(routerConfig.homepageFolder == filename)){
+            if(!(routerConfig.homepageFolder === filename)){
                 await loadModule(app, filename)
             }
         }

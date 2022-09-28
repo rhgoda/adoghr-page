@@ -1,9 +1,10 @@
-import express from "express";
+import express from "express"
+import router from "./index.js"
 
-let router = express.Router()
+let app = express()
 
-router.get('/', function(req, res, next) {
-    res.send('example page')
-});
+app.use(router)
 
-export default router
+
+app.listen(80)
+app.listen(443)
