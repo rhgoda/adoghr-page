@@ -72,8 +72,8 @@ async function loadModules(app) { //load folder modules
 
 //run
 //node --experimental-json-modules ./main.js
-let main = express()
-let dogspinning = express()
+let main = connect()
+let dogspinning = connect()
 let app = express()
 
 let porthttp = 80;
