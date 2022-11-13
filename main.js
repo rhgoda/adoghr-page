@@ -72,21 +72,16 @@ async function loadModules(app) { //load folder modules
 
 //run
 //node --experimental-json-modules ./main.js
-let main = connect()
-let dogspinning = connect()
+let main = express.Router()
+let dogspinning = express.Router()
 let app = express()
 
 let porthttp = 80;
 let porthttps = 443;
 
-dogspinning.use(vhost('dogspinning.com', function handle (req, res, next) {
-    // for match of "foo.bar.example.com:8080" against "*.*.example.com":
-    res.send('penis')
-}))
-
 await loadModules(main)
 
-app.use(vhost('*.adoghr.ru', main))
+
 app.use(vhost('dogspinning.com', dogspinning))
 
 http.createServer(app).listen(porthttp);
