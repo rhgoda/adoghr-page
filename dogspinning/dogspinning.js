@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
     res.sendFile('./index.js')
 });
 
-app.get('*', (req, res) => {
+router.get('*', (req, res) => {
     let reqpath = path.join(__dirname, req.url.replace('..', ''));
     fs.promises.access(reqpath, fs.constants.F_OK)
         .then(() =>
