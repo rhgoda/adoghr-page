@@ -4,7 +4,7 @@ import path from 'path'
 let router = express.Router()
 
 router.get('/', function(req, res, next) {
-    res.sendFile('./index.js')
+    res.sendFile(path.join(__dirname, './index.js'))
 });
 
 router.get('*', (req, res) => {
