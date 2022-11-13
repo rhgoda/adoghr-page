@@ -1,12 +1,13 @@
 import path from 'path'
 import expressSubdomain from 'express-subdomain'
-import express from 'express';
-import { readdir, access } from 'node:fs/promises';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import express from 'express'
+import { readdir, access } from 'node:fs/promises'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
 import http from 'http'
 import https from 'https'
-import routerConfig from './router-config.json' assert { type: 'json' }; //config
+import routerConfig from './router-config.json' assert { type: 'json' } //config
+import vhost from 'vhost'
 import util from 'util'
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -75,6 +76,12 @@ let porthttp = 80;
 let porthttps = 443;
 
 await loadModules(app)
+
+app.use(vhost('*.*.example.com', function handle (req, res, next) {
+    // for match of "foo.bar.example.com:8080" against "*.*.example.com":
+    res.send('penis')
+}))
+
 
 http.createServer(app).listen(porthttp);
 https.createServer({}, app).listen(porthttps);
