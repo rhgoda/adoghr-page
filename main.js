@@ -9,6 +9,7 @@ import https from 'https'
 import routerConfig from './router-config.json' assert { type: 'json' } //config
 import vhost from 'vhost'
 import util from 'util'
+import connect from 'connect'
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -71,23 +72,22 @@ async function loadModules(app) { //load folder modules
 
 //run
 //node --experimental-json-modules ./main.js
-let app = express()
+let main = connect()
+let dogspinning = connect()
+let app = connect()
+
 let porthttp = 80;
 let porthttps = 443;
 
-app.use(vhost('dogspinning.com', function handle (req, res, next) {
+dogspinning.use(vhost('dogspinning.com', function handle (req, res, next) {
     // for match of "foo.bar.example.com:8080" against "*.*.example.com":
     res.send('penis')
 }))
 
-app.use(vhost('*.adoghr.ru', function handle (req, res, next) {
-    // for match of "foo.bar.example.com:8080" against "*.*.example.com":
-    next()
-}))
+await loadModules(main)
 
-await loadModules(app)
-
-
+app.use(vhost('*.adoghr.ru', main))
+app.use(vhost('dogspinning.com', dogspinning))
 
 http.createServer(app).listen(porthttp);
 https.createServer({}, app).listen(porthttps);
