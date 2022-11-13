@@ -81,6 +81,7 @@ let porthttps = 443;
 
 await loadModules(main)
 
+app.use(vhost('*.adoghr.ru', main))
 app.use(vhost('dogspinning.com', dogspinning))
 
 http.createServer(app).listen(porthttp);
