@@ -77,11 +77,15 @@ let porthttps = 443;
 
 await loadModules(app)
 
-app.use(vhost('*.*.example.com', function handle (req, res, next) {
+app.use(vhost('dogspinning.com', function handle (req, res, next) {
     // for match of "foo.bar.example.com:8080" against "*.*.example.com":
     res.send('penis')
 }))
 
+app.use(vhost('*.adoghr.ru', function handle (req, res, next) {
+    // for match of "foo.bar.example.com:8080" against "*.*.example.com":
+    next()
+}))
 
 http.createServer(app).listen(porthttp);
 https.createServer({}, app).listen(porthttps);
