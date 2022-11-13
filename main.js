@@ -72,16 +72,16 @@ async function loadModules(app) { //load folder modules
 
 //run
 //node --experimental-json-modules ./main.js
-let main = express.Router()
+let main = express()
 import dogspinning from './dogspinning/dogspinning.js'
 let app = express()
 
 let porthttp = 80;
 let porthttps = 443;
 
-await loadModules(app)
+await loadModules(main)
 
-// app.use(vhost('*.adoghr.ru', main))
+app.use(vhost('*.adoghr.ru', main))
 app.use(vhost('dogspinning.com', dogspinning))
 
 http.createServer(app).listen(porthttp);
