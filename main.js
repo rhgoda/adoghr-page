@@ -1,6 +1,6 @@
 import path from 'path'
 import expressSubdomain from 'express-subdomain'
-import express from'express';
+import express from 'express';
 import { readdir, access } from 'node:fs/promises';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -31,7 +31,7 @@ async function loadModule(app, module) { //add a module subdomain //the main req
     if (!routerConfig.exceptions.includes(module)) {
         let module_path = await formPath(module)
         let routerModule = await import(module_path)
-        console.log(routerModule)
+        //console.log(routerModule)
         app.use(expressSubdomain(module, routerModule.default));//use imported router
     }
 }
@@ -75,8 +75,6 @@ let porthttp = 80;
 let porthttps = 443;
 
 await loadModules(app)
-
-
 
 http.createServer(app).listen(porthttp);
 https.createServer({}, app).listen(porthttps);
